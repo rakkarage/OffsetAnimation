@@ -16,4 +16,4 @@ fragment
 - calculate actualFrame
   - add current frame and offset frame and mod by frames to get actualFrame
 - offset uv to actualFrame
-  - uv = uv + ((actualFrame - offset) * frameWidth)
+  - uv = uv + ((actualFrame - offsetFrame) * frameWidth)
