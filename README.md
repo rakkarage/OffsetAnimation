@@ -1,3 +1,5 @@
+![OffsetAnimations](README.gif)
+
 # Shader Description
 
 uniform
