@@ -1,10 +1,10 @@
-[gd_resource type="VisualShader" load_steps=22 format=2]
+[gd_resource type="VisualShader" load_steps=21 format=2]
 
 [sub_resource type="VisualShaderNodeScalarUniform" id=1]
 uniform_name = "FrameCount"
 
 [sub_resource type="VisualShaderNodeScalarUniform" id=2]
-uniform_name = "FramesPerSecond"
+uniform_name = "FrameLength"
 
 [sub_resource type="VisualShaderNodeScalarOp" id=3]
 operator = 2
@@ -48,23 +48,19 @@ function = 14
 [sub_resource type="VisualShaderNodeTextureUniform" id=17]
 uniform_name = "Atlas"
 
-[sub_resource type="VisualShaderNodeScalarOp" id=18]
-default_input_values = [ 0, 1.0, 1, 0.0 ]
-operator = 3
+[sub_resource type="VisualShaderNodeScalarUniform" id=18]
+uniform_name = "frameWidth"
 
-[sub_resource type="VisualShaderNodeScalarOp" id=19]
-default_input_values = [ 0, 1.0, 1, 0.0 ]
-operator = 3
-
-[sub_resource type="VisualShaderNodeVectorOp" id=20]
+[sub_resource type="VisualShaderNodeVectorOp" id=19]
 operator = 2
 
-[sub_resource type="VisualShaderNodeVectorOp" id=21]
+[sub_resource type="VisualShaderNodeVectorOp" id=20]
 
 [resource]
 code = "shader_type canvas_item;
+uniform float frameWidth;
 uniform float FrameCount;
-uniform float FramesPerSecond;
+uniform float FrameLength;
 uniform sampler2D Atlas;
 
 
@@ -83,15 +79,11 @@ void fragment() {
 	float n_out30p1 = n_out21p0.y;
 	float n_out30p2 = n_out21p0.z;
 
-// ScalarUniform:10
-	float n_out10p0 = FrameCount;
-
-// ScalarOp:47
-	float n_in47p0 = 1.00000;
-	float n_out47p0 = n_in47p0 / n_out10p0;
+// ScalarUniform:48
+	float n_out48p0 = frameWidth;
 
 // ScalarOp:24
-	float n_out24p0 = n_out30p0 / n_out47p0;
+	float n_out24p0 = n_out30p0 / n_out48p0;
 
 // ScalarFunc:35
 	float n_out35p0 = floor(n_out24p0);
@@ -99,7 +91,7 @@ void fragment() {
 // VectorCompose:38
 	float n_in38p1 = 0.00000;
 	float n_in38p2 = 0.00000;
-	vec3 n_out38p0 = vec3(n_out47p0, n_in38p1, n_in38p2);
+	vec3 n_out38p0 = vec3(n_out48p0, n_in38p1, n_in38p2);
 
 // VectorOp:33
 	vec3 n_out33p0 = vec3(n_out35p0) * n_out38p0;
@@ -110,21 +102,20 @@ void fragment() {
 // Input:2
 	float n_out2p0 = TIME;
 
-// ScalarUniform:13
-	float n_out13p0 = FramesPerSecond;
+// ScalarUniform:10
+	float n_out10p0 = FrameCount;
 
-// ScalarOp:48
-	float n_in48p0 = 1.00000;
-	float n_out48p0 = n_in48p0 / n_out13p0;
+// ScalarUniform:13
+	float n_out13p0 = FrameLength;
 
 // ScalarOp:15
-	float n_out15p0 = n_out10p0 * n_out48p0;
+	float n_out15p0 = n_out10p0 * n_out13p0;
 
 // ScalarOp:16
 	float n_out16p0 = mod(n_out2p0, n_out15p0);
 
 // ScalarOp:17
-	float n_out17p0 = n_out16p0 / n_out48p0;
+	float n_out17p0 = n_out16p0 / n_out13p0;
 
 // ScalarFunc:18
 	float n_out18p0 = floor(n_out17p0);
@@ -161,20 +152,20 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -964, 578 )
+graph_offset = Vector2( -55, 311.5 )
 mode = 1
 flags/light_only = false
 nodes/fragment/0/position = Vector2( 1460, 400 )
 nodes/fragment/2/node = SubResource( 7 )
 nodes/fragment/2/position = Vector2( -320, 500 )
-nodes/fragment/7/node = SubResource( 20 )
+nodes/fragment/7/node = SubResource( 19 )
 nodes/fragment/7/position = Vector2( 880, 460 )
-nodes/fragment/8/node = SubResource( 21 )
+nodes/fragment/8/node = SubResource( 20 )
 nodes/fragment/8/position = Vector2( 1080, 380 )
 nodes/fragment/10/node = SubResource( 1 )
 nodes/fragment/10/position = Vector2( -580, 540 )
 nodes/fragment/13/node = SubResource( 2 )
-nodes/fragment/13/position = Vector2( -780, 720 )
+nodes/fragment/13/position = Vector2( -580, 700 )
 nodes/fragment/15/node = SubResource( 3 )
 nodes/fragment/15/position = Vector2( -320, 580 )
 nodes/fragment/16/node = SubResource( 4 )
@@ -203,8 +194,6 @@ nodes/fragment/38/node = SubResource( 16 )
 nodes/fragment/38/position = Vector2( 128, 400 )
 nodes/fragment/45/node = SubResource( 17 )
 nodes/fragment/45/position = Vector2( 1260, 320 )
-nodes/fragment/47/node = SubResource( 18 )
-nodes/fragment/47/position = Vector2( -120, 400 )
-nodes/fragment/48/node = SubResource( 19 )
-nodes/fragment/48/position = Vector2( -520, 680 )
-nodes/fragment/connections = PoolIntArray( 7, 0, 8, 1, 17, 0, 18, 0, 21, 0, 30, 0, 25, 0, 26, 0, 10, 0, 26, 1, 24, 0, 35, 0, 35, 0, 33, 0, 35, 0, 25, 0, 7, 0, 8, 1, 17, 0, 18, 0, 21, 0, 30, 0, 25, 0, 26, 0, 10, 0, 26, 1, 24, 0, 35, 0, 35, 0, 33, 0, 35, 0, 25, 0, 38, 0, 33, 1, 16, 0, 17, 0, 2, 0, 16, 0, 15, 0, 16, 1, 10, 0, 15, 0, 33, 0, 32, 1, 21, 0, 32, 0, 18, 0, 25, 1, 32, 0, 8, 0, 8, 0, 45, 0, 45, 0, 0, 0, 45, 1, 0, 1, 26, 0, 7, 1, 38, 0, 7, 0, 30, 0, 24, 0, 10, 0, 47, 1, 47, 0, 24, 1, 13, 0, 48, 1, 48, 0, 17, 1, 48, 0, 15, 1, 47, 0, 38, 0 )
+nodes/fragment/48/node = SubResource( 18 )
+nodes/fragment/48/position = Vector2( -140, 400 )
+nodes/fragment/connections = PoolIntArray( 7, 0, 8, 1, 17, 0, 18, 0, 21, 0, 30, 0, 25, 0, 26, 0, 10, 0, 26, 1, 24, 0, 35, 0, 35, 0, 33, 0, 35, 0, 25, 0, 7, 0, 8, 1, 17, 0, 18, 0, 21, 0, 30, 0, 25, 0, 26, 0, 10, 0, 26, 1, 24, 0, 35, 0, 35, 0, 33, 0, 35, 0, 25, 0, 16, 0, 17, 0, 2, 0, 16, 0, 15, 0, 16, 1, 10, 0, 15, 0, 33, 0, 32, 1, 21, 0, 32, 0, 18, 0, 25, 1, 32, 0, 8, 0, 8, 0, 45, 0, 45, 0, 0, 0, 45, 1, 0, 1, 26, 0, 7, 1, 30, 0, 24, 0, 13, 0, 15, 1, 13, 0, 17, 1, 48, 0, 24, 1, 48, 0, 38, 0, 38, 0, 7, 0, 38, 0, 33, 1 )
