@@ -6,7 +6,8 @@ uniform
 
 - frames: eg. 6
 - frameLength: eg. 0.25 (4 fps)
-- frameWidth: eg. 0.166667 (1 / 6)
+- frameWidth: eg. 0.034482759 (1 / 29)
+- frameStart: eg. 0.655172421 (0.034482759 * 19)
 
 fragment
 
