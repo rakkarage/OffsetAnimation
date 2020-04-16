@@ -2,6 +2,10 @@
 
 ![OffsetAnimations](README.gif)
 
+some uniforms will get trimmed by the editor on resave unless
+
+- Editor Settings -> Interface -> Inspector -> Default Float Step -> 0.000000001
+
 uniform
 
 - frames: eg. 6
