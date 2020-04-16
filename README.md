@@ -7,6 +7,8 @@ some uniforms will get trimmed by the editor on resave unless
 - Editor Settings -> Interface -> Inspector -> Default Float Step -> 0.000000001
 
 and even when this is set it will still trim on build!? tho works in editor
+so need to do it non-wonky style by cutting animation atlases out of atlas
+will still trim but notice no shaking yet
 
 uniform
 
