@@ -1,6 +1,6 @@
-![OffsetAnimations](README.gif)
-
 # Shader Description
+
+![OffsetAnimations](README.gif)
 
 uniform
 
@@ -15,6 +15,8 @@ fragment
   - mod time by animationLength and divide by frameLength and floor to get currentFrame
 - calculate offsetFrame
   - divide uv x by frameWidth and floor to get offsetFrame
+- wonky calculate offsetFrame
+  - subtract frameStart from uv and divide by frameWidth and ciel to get offsetFrame
 - calculate actualFrame
   - add current frame and offset frame and mod by frames to get actualFrame
 - offset uv to actualFrame

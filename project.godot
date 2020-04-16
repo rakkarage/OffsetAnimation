@@ -17,3 +17,7 @@ _global_script_class_icons={
 
 config/name="OffsetAnimations"
 run/main_scene="res://Test.tscn"
+
+[rendering]
+
+quality/2d/use_pixel_snap=true
